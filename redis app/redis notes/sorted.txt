@@ -1,0 +1,67 @@
+# SORT command [ one of the trickiest command in redis ]
+
+> stored in hash
+|-------------------------------------------------------------|
+| bookid        | bookname (title)   n  |publishdate (year)   |
+|-------------------------------------------------------------|
+|  good         |       good bookid     |    1950             |
+|  bad          |       bad book        |     1930            |
+| ok            |       ok book         |      1990           |
+|-------------------------------------------------------------|
+
+HSET books:good title "Good Book" year 1950
+HSET books:bad title "Bad Book" year 1930
+HSET books:ok title "Ok Book" year 1990
+
+> books:likes
+ZADD books:likes 999 good [ 999 views on good book]
+ZADD books:likes 0 Bad
+ZADD books:likes 40 ok
+
+# SORT command operate on sorted sets / sets
+
+SORT books:like  [results error]
+> SORT operates on the MEMBERS of a sorted set not the scores
+> SORT refers to these members as scores!!!
+
+SORT books:like ALPHA [ sort by alphabetically to the members ]
+
+SORT books:like LIMIT 0 2 ALPHA [ limit start and indx0 and skip 2]
+
+# BY arg [ sorting criteria ]
+
+SORT books:likes BY books:*->year [ loop through each member insert the member in template. If this points at a hash retrieve the field. ]
+
+books:good -> year [ from the books:good hash]
+books:bad -> year
+books:ok  -> year
+
+> Now sort each member based on BY field [ year ]
+
+> Now return only the members after sorting [
+    bad,
+    good,
+    ok
+]
+
+# Joining Data
+
+SORT books:likes BY books:*->year 
+    GET books:*->title [ get the title ]
+
+> we can use GET command multiple times
+SORT books:likes BY books:*->year
+    GET #  [ also return the original id]
+    GET books:*->title
+    GET books:*->year
+
+> we can replace BY by nosort if we dont want to any additional sort in 
+SORT books:like BY nosort [ or any other key that doesnt exists ]
+    GET #
+    GET books:*->year
+    GET books:*->title
+
+> Few more arguments
+flip the order
+SORT books:likes BY nosort DESC/ASC
+    GET books:*->title
