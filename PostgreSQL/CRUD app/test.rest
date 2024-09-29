@@ -1,0 +1,15 @@
+###
+GET http://localhost:8080/api/setup
+
+###
+POST http://localhost:8080/api
+Content-Type: application/json
+
+{
+    "name": "Jane",
+    "location": "Washington"
+}
+
+###
+GET http://localhost:8080/api
+###
