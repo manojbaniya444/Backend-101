@@ -1,4 +1,3 @@
-const e = require("express");
 const pool = require("../db/dbConfiguration");
 
 const router = require("express").Router();
