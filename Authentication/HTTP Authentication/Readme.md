@@ -16,4 +16,4 @@ Authorization: <auth-scheme> <authorization-parameters>
 - **Digest**
 - and many more
 
-> As the User ID and password are passed over the network as clear text, the basic authentication scheme is not secure. HTTPS/TLS should be used with basic authentication. Without these additional security enhancements, basic authentication should not be used to protect sensitive data.
+> As the User ID and password are passed over the network as clear text, the basic authentication scheme is not secure. HTTPS/TLS should be used with basic authentication. Without these additional security enhancements, basic authentication should not be used to protect sensitive data
