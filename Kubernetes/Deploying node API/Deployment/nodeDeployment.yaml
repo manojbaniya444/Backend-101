@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+  labels:
+    app: nodeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp
+  # pod template configuration
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+    spec:
+      containers:
+      # container name
+      - name: nodeserver
+      # image name from hub
+        image: manoj444/mynode
+        ports:
+      # port 8080 expose
+        - containerPort: 8080
