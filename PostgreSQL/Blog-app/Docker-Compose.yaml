@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: blog
+      POSTGRES_PASSWORD: blog12
+      POSTGRES_USER: myblog
+    volumes:
+      - postgres_data_volume:/var/lib/postgresql/data
+    ports:
+      - "9999:5432"
+
+volumes:
+  postgres_data_volume:
