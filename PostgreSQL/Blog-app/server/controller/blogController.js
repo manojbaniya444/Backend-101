@@ -36,4 +36,56 @@ const getBlogHandler = async (req, res) => {
   }
 };
 
-module.exports = { getUsersHandler, createNewBlogHandler, getBlogHandler };
+const createCommentHandler = async (req, res) => {
+  const { comment, authorId } = req.body;
+
+  if (!comment || !authorId) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  const blogId = req.params.blogId;
+
+  try {
+    await pool.query(
+      `INSERT INTO comment (content, author, blog_id)
+      VALUES ($1, $2, $3)`,
+      [comment, authorId, blogId]
+    );
+    res.status(201).json({ message: "comment post." });
+  } catch (error) {
+    res.status(500).json({ message: "Internal error." });
+  }
+};
+
+const getBlogComment = async (req, res) => {
+  const { blogId } = req.params;
+
+  try {
+    const blogComments = await pool.query(
+      `SELECT * FROM comment`
+    );
+    return res.status(200).json(blogComments.rows);
+  } catch (error) {
+    res.status(500).json({ message: "error" });
+  }
+};
+
+const getBlog = async (req, res) => {
+  const { blogId } = req.params;
+
+  try {
+    const blog = await pool.query("SELECT * FROM blog WHERE id = $1", [blogId]);
+    res.status(200).json({ message: "fetch", blog: blog.rows });
+  } catch (e) {
+    res.status(500).json({ message: "Error", e });
+  }
+};
+
+module.exports = {
+  getUsersHandler,
+  createNewBlogHandler,
+  getBlogHandler,
+  createCommentHandler,
+  getBlogComment,
+  getBlog
+};
