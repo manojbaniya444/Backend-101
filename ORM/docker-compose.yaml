@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes: 
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - 9999:5432
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=manoj444
+      - POSTGRES_PASSWORD=pgsql12
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8888:8080
+
+# connection string: postgresql://manoj444:pgsql12;@localhost:9999/mydatabase
