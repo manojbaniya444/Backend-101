@@ -30,3 +30,12 @@ A communication protocol providing a simultaneous two way full duplex communicat
 - setup ts and express
 `npm install ws` for websocket
 `npm install @types/ws` type
+
+# start the server
+- tsc -b
+- node dist/index.js
+
+# connect from different client
+- from mobile
+- from postman
+- from webbrowser
