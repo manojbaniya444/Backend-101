@@ -55,3 +55,15 @@ npx tsc -b # compile
 node dist/index.js
 ```
 create a redis client.
+
+# Subscribe to topic
+messages are published to a topic without the knowledge of what or if any subscribers there might be. Similarly subscribers there might be.
+
+Subscribers listen for messages on topics of interest without knowing which one are sending them.
+
+This decoupling of publisher and subscribers allows for highly scalable and flexible communication system.
+
+```
+PUBLISH done "something"
+SUBSCRIBE done
+``
