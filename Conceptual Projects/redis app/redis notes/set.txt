@@ -1,0 +1,51 @@
+# Set > a collection of strings where each string is unique
+
+# Commands in Set
+
+> SADD [ adds a string to a set ]
+SADD colors red [ add red in key color ]
+SADD colors blue [ add blue in key color ]
+SADD colors red [ no changes because we already have red in the set ]
+
+> SMEMBERS [ returns all the strings stored in a set ]
+SMEMBERS colors
+
+# Union of set [ union, intersection, difference ]
+> SUNION key:1 key:2 key:3 [ returns union of all three sets ]
+
+# intersection
+> SINTER key:1 key:2 key:3 [ returns intersection of three sets ] 
+
+# difference
+> SDIFF key:1 key:2 [ returns which are not present in any other set i.e find the difference ] [ order of key makes a difference here elements in kry:1 will be taken as base and according to it the difference is taken ]
+
+# store variation [ store in a new key after operation using any command in redis ]
+> SINTERSTORE newSet set:1 set:2 set:3
+> SMEMBERS newSet [ intersection of set:1 set:2 set:3 ]
+
+# SISMEMBER [ returns 1 if the element exists in the set, 0 if not ]
+> SISMEMBER colors:1 red [ is red present in colors:1 set ]
+
+> SMISMEMBER [ runs multiple sismember at the same time ]
+SMISMEMBER colors:1 red green blue [ checks for red green and blue, returns array of 0, 1 logic ]
+
+# SCARD [ return the number of elements in a set ]
+> SCARD key:1 [ number of items in key:1 set ]
+
+# remove item from the set 
+> SREM key:1 item
+> SREM colors red 
+
+# scanning through all the elements in a list [ use if the set is large and dont want to get all the data ]
+> SSCAN colors 0 COUNT 2 [set cursorid #of elements to return]
+> SSCAN colors 3 COUNT 2
+
+# Common use cases of set
+> Enforcing uniqueness of any value [ SISMEMBER username user#12]
+> Creating a relationship between different records [ when implementing likes, views > user#12 likes [...] ]
+    SMEMBERS user#12:likes
+> Finding common attributes between two different things/elements
+    [items user#12 likes and items user#22 likes]
+    SINTER user#12:likes user#22:likes
+> General list of elements where order doesnt matter at all
+    [ limit what kind of IP address are accept / Rate limiting case / black list / white list IP , ...]

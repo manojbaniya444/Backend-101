@@ -1,0 +1,78 @@
+rbook.cloud
+// for documentation of commands
+redis.io/commands
+
+
+# Redis commands
+SET key_ value_
+GET key_
+SET color "red" XX[only if key color exists]
+SET color "red" NX[only if key color doesnot exists]
+
+_________________________________________________________
+
+# Expiry values
+SET color "red" EX 2 [expire this key value after 2 seconds returns null]
+-- it is used for caching purpose
+
+SETEX does the same thing as SET with the EX option
+
+SETNX does the same thing as SET with the NX option
+
+_________________________________________________________
+
+# Setting up multiple key value pairs
+MSET color "red" car "Toyota"
+MSET key1 value1 key2 value2
+
+GET color
+GET car
+
+MSETNX [if any of these keys exists, no set is done]
+MSETNX key1 value1 key2 value2
+
+_________________________________________________________
+
+# GET and MGET
+GET key
+MGET key1 key2 [returns two values]
+
+_________________________________________________________
+
+
+# String Ranges
+DEL [delete a key]
+DEL key1
+DEL color [delete the key color and any data associated with key color]
+
+GETRANGE [return a sequence of characters from an existing string]
+GETRANGE color 0 3 [returns 0 to 3 index characters including 0 and 3]
+
+SETRANGE [update a portion of an existing string]
+SETRANGE model 2 tesla 
+GET model ["totesla"]
+_________________________________________________________
+
+# encode the properties of a database table and add entries in the redis in encoded form 
+update the table as:
+GETRANGE item:1 0 2 [fetch one to three properties of a single item because the column are encoded each letter representing a single column]
+
+SETRANGE item:1 0 bcd [update one to three properties of a single item]
+
+MGET item:1 item:2 item:3
+MSET item:4 abc item:5 acd
+
+_________________________________________________________
+
+# Dealing with numbers
+[same as we deal with strings]
+SET age 20 [20 will be stored as string]
+GET age [returns "20"]
+
+INCR age [adds 1 to the number stored at key]
+DECR age [subtracts 1 to the number stored at key]
+INCRBY age 10 [increase by 10]
+DECRBY age 10 [decrease by 10]
+INCRBYFLOAT age +-6.9 [adds a float to the number stored at key]
+_________________________________________________________
+

@@ -1,0 +1,27 @@
+> Occur when the request needs to do some calculation so that concurrent request might affect the outcome of the request we want.
+
+# 1. Use an atomic update command in redis
+> Remove any read operation that cause some time for calculation.
+> e.g use HNCRBY operation or HSESTNX
+
+# 2. Use a transaction with the WATCH command in redis.
+> Group together one or more commands to run sequentially
+> Similar to pipelining, but some big differences
+> Transactions cannot be undone/rollback/reversed like in other databases.
+
+different commands on Transactions
+MULTI ["pk"]   -> start the transaction
+SET color red ["queued"] -> transaction operations
+SET count 2 ["queued"]
+EXEC [command executes "ok" "ok"] -> execute the transaction
+
+> WATCH command [ tell redis to watch some value stored . If it changes cancel the transaction ]
+
+WATCH color
+set color blue ["ok"]
+MULTI
+set color red
+set count 2
+EXEC [null, color change]
+
+# Isolated connections for Transactions

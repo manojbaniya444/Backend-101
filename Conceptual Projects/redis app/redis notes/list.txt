@@ -1,0 +1,69 @@
+# List data structure in redis
+> store an ordered list of strings
+> Not an array
+> Implemented as a doubly linked list
+> We use this less
+> Often used for time series data
+
+> doubly linked list 
+list -> 25c -><- 21c -> <- 25c -><- 20c -> 30c -> <- 21c -> <- 20c
+                       temperatures of 7 days
+
+
+# Reading and Writing into the list
+> LPUSH [ add an element at the start ]
+> RPUSH [ add an element at the right ]
+
+LPUSH temps 25 [ returns numbers of elements stored in the list ]
+RPUSH temps 21 [ returns: 2 ]
+RPUSH temps 25 [ returns: 3 ]
+
+> LLEN [ get the number of elements in the list ]
+LLEN temps
+
+> LINDEX temps 0 [ get the item at the particular index ]
+LLINDEX tmps -1 [ get the element of end of the list ]
+
+# Ranges and Searches
+> LRANGE [ get a range of elements from a list ]
+
+LRANGE temps 0 3 [ elements starting at index 0 upto 3 including index 3 ]
+
+> LPOS [ get the index of a value stored in a list if it is there ]
+LPOS temps 25 [ returns the index of item 25, otherwise null ]
+
+LPOS temps 25 RANK 2 [ find 2nd instance of 25 if there are multiple items ]
+LPOS temps 25  COUNT 2 [ retrieves the index of the first 2 matches if multiple 25 then get the index of first 2 25's ]
+
+LPOS temps 25 MAXLEN 10 [ only search the first 10 items ]
+
+# Trimming list 
+> LPOP [ remove and return some number of elements from the start ]
+LPOP temps 2 [ removes the first 2 elements (optional) ]
+
+> RPOP [ remove and return elements from the right side ]
+RPOP temps 2
+
+> LSET [ change the value stored at the index given ]
+LSET temps 2 20 [ replace the item of index 2 with 20 ]
+LINDEX 2 [ returns 20 ]
+
+LSET temps -1 10 [ last element 10 ]
+
+> LTRIM [ remove all elements outside of this range ]
+LTRIM temps 2 5 [ only keep elements from index 2 to 5 including 5 ]
+
+> LINSERT [ find an element in a list then insert a value before or after ]
+LINSERT temps BEFORE 30 15 [ add 15 before 30 ]
+
+> LREM [ removes some elements from a list ]
+LREM temps -2 25 [ -2 means start from right and remove two copies of 25 ]
+
+# Use case of LIST
+> Append only or Prepend only data use case
+> When we only need the last/first N values of something
+> Our data has no sort order besides the order it was inserted in it
+
+# Dont use list
+> when we need to apply some filtering criteria
+> data is sorted by some attribute
