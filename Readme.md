@@ -21,6 +21,7 @@ This repository contains all essential backend concepts.
 ## Message Queues
 
 - [RabbitMQ](./Asynchronous%20Communication/RabbitMQ/)
+- [Direct Exchange](./Asynchronous%20Communication/RabbitMQ/Direct%20Exchange/)
 
 ## PostgrsSQL
 
