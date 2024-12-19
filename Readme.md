@@ -1,11 +1,8 @@
-## Backend Concepts
-
-This repository contains all essential backend concepts.
-
 ## Authentication
 
 - [Basic HTTP Authentication](./Authentication/HTTP%20Authentication/)
 - [JWT Authentication](./Authentication/simple%20jwt%20authentication/)
+- [oAUTH](./Authentication/OAuth/)
 
 ## Docker
 
@@ -18,10 +15,15 @@ This repository contains all essential backend concepts.
 
 - [Single Node Cluster with MiniKube](./Kubernetes/Deploying%20node%20API/)
 
-## Message Queues
+## Asynchronous Communication
 
-- [RabbitMQ](./Asynchronous%20Communication/RabbitMQ/)
-- [Direct Exchange](./Asynchronous%20Communication/RabbitMQ/Direct%20Exchange/)
+- [RabbitMQ: Basic](./Asynchronous%20Communication/RabbitMQ/)
+- [RabbitMQ: Direct Exchange](./Asynchronous%20Communication/RabbitMQ/Direct%20Exchange/)
+- [RabbitMQ: RPC](./Asynchronous%20Communication/RabbitMQ/RPC%20in%20RabbitMQ/)
+
+## Synchronous Communication
+
+- [gRPC: Basic](./Synchronouse%20Communication/gRPC/)
 
 ## PostgrsSQL
 
