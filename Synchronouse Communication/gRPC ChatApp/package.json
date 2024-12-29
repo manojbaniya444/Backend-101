@@ -1,13 +1,13 @@
 {
-  "name": "grpc",
+  "name": "grpc-chatapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test-shell": "bash ./proto-run.sh",
-    "client": "npx tsx client.ts",
-    "server": "npx tsx server.ts"
+    "proto-gen": "bash ./proto-gen.sh",
+    "client": "ts-node client",
+    "server": "ts-node server"
   },
   "keywords": [],
   "author": "",

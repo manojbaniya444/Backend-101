@@ -1,15 +1,54 @@
+// proto version syntax
 syntax = "proto3";
 
+// package name
 package randomPackage;
 
+// random service
 service RandomService {
-    rpc PingAndPong (PingRequest) returns (PongResponse) {}
+    // service 1
+    rpc PingAndPong (PingRequest) returns (PongResponse) {};
+
+    // service 2 (another one)
+    // server is streaming data so add stream in response
+    rpc RandomNumbers(NumberRequest) returns (stream NumberResponse){};
+
+    // for the client response
+    rpc TodoList(stream TodoRequest) returns (TodoResponse){}; // request stream because the user has sent the stream request to the server
 }
 
+// 1. Simple Request Response Example DEMO
 message PingRequest {
+    // need to follow order 1 2 ...
     string message = 1;
+    string id = 2;
 }
 
 message PongResponse {
     string message = 1;
+    string id = 2;
+}
+
+// 2. Stream Response from server
+message NumberRequest {
+    int32 maxVal = 1;
+}
+
+message NumberResponse {
+    int32 randomN = 1;
+}
+
+// 3. Stram Request from the client
+message TodoRequest {
+    string task = 1;
+    string status = 2;
+}
+
+message TodoResponse {
+    repeated TodoItem tasks = 1;
+}
+
+message TodoItem {
+    string task = 1;
+    string status = 2;
 }
