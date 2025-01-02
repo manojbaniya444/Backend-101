@@ -26,6 +26,7 @@ This Repository contains all the important concepts in Backend Development.
 ## Synchronous Communication
 
 - [gRPC: Basic](./Synchronouse%20Communication/gRPC/)
+- [gRPC: Bidirectional Stream](./Synchronouse%20Communication/gRPC%20ChatApp/)
 
 ## PostgrsSQL
 
@@ -33,3 +34,7 @@ This Repository contains all the important concepts in Backend Development.
 - [Simple CRUD](./PostgreSQL/CRUD%20app/)
 - [Drizzle ORM for PostgreSQL connection and setup](./PostgreSQL/ORM/)
 - [PostgreSQL Docker Server Connection](./PostgreSQL/postgres%20docker/)
+
+## Websocket
+
+- [Basic ChatApp](./Websocket/)
