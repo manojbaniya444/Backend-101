@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Based Request</title>
+</head>
+<body>
+    <h1>Protected API</h1>
+    <input type="text" placeholder="Enter the secret code" id="input-field">
+    <button id="secret-btn">Get the Secret</button>
+    <script>
+        const inputField = document.getElementById("input-field")
+        const secretButton = document.getElementById("secret-btn")
+
+        secretButton.addEventListener("click", async (event) => {
+            const secret = inputField.value;
+            if (secret === "") {
+                return
+            }
+
+            try {
+                const response = await fetch("http://localhost:8080/api", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${secret}`
+                    }
+                })
+                if (response.status === 200) {
+                    const data = await response.json()
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    </script>
+</body>
+</html>
