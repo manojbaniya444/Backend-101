@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const { getUsers, saveUsers } = require("../db");
 const jwt = require("jsonwebtoken");
+const { all } = require("./protectedRoute");
 const TOKEN_SECRET = "secret";
+const REFRESH_SECRET = "refresh"
 
 router.post("/register", async (req, res) => {
   // get the username and password from the request body
@@ -62,12 +64,20 @@ router.post("/login", async (req, res) => {
 
   // generate a token
   const token = jwt.sign({ username }, TOKEN_SECRET);
+  
+  const refreshToken = jwt.sign({username}, REFRESH_SECRET)
 
   // set the cookie with the token
-  res.cookie("token", token, {
+  res.cookie("access-token", token, {
     httpOnly: true,
-    maxAge: 2 * 60 * 60 * 1000,
+    maxAge: 1000 * 30,
   });
+
+  // refresh token
+  res.cookie("refresh", refreshToken, {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 5
+  })
 
   // another cookie with the username
   res.cookie("username", username, {
@@ -78,4 +88,41 @@ router.post("/login", async (req, res) => {
   // send the response to the client with the token
   return res.status(200).json({ message: "Login done", token });
 });
+
+
+router.get("/refresh", (req, res) => {
+  const cookie = req.headers.cookie;
+  if (!cookie) {
+    return res.status(400).json({message: "No cookie given"})
+  }
+
+  const allCookies = cookie.split(";")
+
+  const refreshToken = allCookies.find(c => c.trim().startsWith("refresh="))
+  const username = allCookies.find(c => c.trim().startsWith("username="))
+
+  if (!refreshToken || !username) {
+    return res.status(400).json({message: "No refresh token"})
+  }
+
+  const refresh = refreshToken.split("=")[1]
+
+  jwt.verify(refresh, REFRESH_SECRET, (error, decoded) => {
+    if (error) {
+      console.log(error)
+      return res.status(400).json({message: "Invalid Refresh token"})
+    }
+
+    const user = username.split("=")[1]
+    const token = jwt.sign({user}, TOKEN_SECRET)
+    res.cookie("access-token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 30
+    })
+
+    return res.status(200).json({message: "Access token refresh", token})
+  })
+  
+})
+
 module.exports = router;
