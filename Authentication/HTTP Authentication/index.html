@@ -4,14 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Token Based Request</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    input, button {
+        margin: 10px 0;
+        padding: 8px;
+    }
+
+    .success {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+        background-color: #2ea713;
+    }
+    .fail {
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+        background-color: #880f36;
+        color: white;
+    }
+    </style>
 </head>
 <body>
     <h1>Protected API</h1>
-    <input type="text" placeholder="Enter the secret code" id="input-field">
+    <input type="text" placeholder="Enter the secret code" id="input-field" autocomplete="off">
     <button id="secret-btn">Get the Secret</button>
+    <div id="response"></div>
     <script>
         const inputField = document.getElementById("input-field")
         const secretButton = document.getElementById("secret-btn")
+        const messages = document.getElementById("response")
 
         secretButton.addEventListener("click", async (event) => {
             const secret = inputField.value;
@@ -28,7 +55,12 @@
                 })
                 if (response.status === 200) {
                     const data = await response.json()
-                    console.log(data)
+                    const p = document.createElement("p")
+
+                    const classname = data.success ? "success" : "fail"
+                    p.textContent = data.message
+                    p.className = classname
+                    messages.appendChild(p)
                 }
             } catch (error) {
                 console.log(error)

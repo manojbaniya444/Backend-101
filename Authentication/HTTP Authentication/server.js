@@ -27,9 +27,9 @@ server.on("request", (req, res) => {
             const apiKey = authorizationToken.split(" ")[1] || null
 
             if (apiKey === apiSecret) {
-                return res.end(JSON.stringify({message: "The secret message is hahahahaha."}))
+                return res.end(JSON.stringify({success: true, message: "The secret message is hahahahaha."}))
             } else {
-                return res.end(JSON.stringify({message: "Please provide valid API KEY."}))
+                return res.end(JSON.stringify({message: "Please provide valid API KEY.", success: false}))
             }
 
     }
