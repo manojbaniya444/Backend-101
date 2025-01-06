@@ -1,0 +1,27 @@
+{
+  "name": "postgres",
+  "version": "1.0.0",
+  "description": "postgres with node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node --transpile-only ./src/index.ts",
+    "setup-db": "ts-node ./src/db/setup.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parse": "^0.4.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.5",
+    "@types/pg": "^8.11.10",
+    "ts-node": "^10.9.2"
+  }
+}
