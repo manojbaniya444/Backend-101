@@ -72,6 +72,38 @@ class Todo {
             throw error
         }
     }
+    static async updatePartial(id: number, updates: Partial<TodoItem>) {
+        const validFields = ['title', 'description', 'is_completed'] as const;
+        const updates_arr: any[] = [];
+        const values: any[] = [];
+        let paramCount = 1;
+
+        for (const [key, value] of Object.entries(updates)) {
+            if (validFields.includes(key as any) && value !== undefined) {
+                updates_arr.push(`${key} = $${paramCount}`);
+                values.push(value);
+                paramCount++;
+            }
+        }
+
+        if (updates_arr.length === 0) return null;
+
+        const query = `
+            UPDATE todos
+            SET ${updates_arr.join(', ')},
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = $${paramCount}
+            RETURNING *
+        `;
+
+        try {
+            const res = await queryDb(query, [...values, id]);
+            return res.rows[0];
+        } catch (error) {
+            console.log("Error on partial update: ", error);
+            throw error;
+        }
+    }
 
     static async delete(id: number) {
         const query = "DELETE FROM todos WHERE id = $1 RETURNING *"

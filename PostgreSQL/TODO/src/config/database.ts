@@ -4,11 +4,11 @@ import dotenv from "dotenv";
 dotenv.config()
 
 const pool = new pg.Pool({
-    host: "0.0.0.0", // db host
-    user: "test", // db user
-    database: "todo",
-    password: "todo12",
-    port: 9000,
+    host: process.env.HOST, // db host
+    user: process.env.USER, // db user
+    database: process.env.DATABASE,
+    password: process.env.PASSWORD,
+    port: 5432,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
     max: 20, // maximum number of clients the pool should contain
