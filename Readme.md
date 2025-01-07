@@ -3,7 +3,7 @@ This Repository contains all the important concepts in Backend Development.
 ## Authentication
 
 - [Basic HTTP Authentication](./Authentication/HTTP%20Authentication/)
-- [JWT Authentication](./Authentication/simple%20jwt%20authentication/)
+- [JWT Authentication with Access and Refresh Token](./Authentication/simple%20jwt%20authentication/)
 - [oAUTH](./Authentication/OAuth/)
 
 ## Docker
@@ -34,6 +34,7 @@ This Repository contains all the important concepts in Backend Development.
 - [Simple CRUD](./PostgreSQL/CRUD%20app/)
 - [Drizzle ORM for PostgreSQL connection and setup](./PostgreSQL/ORM/)
 - [PostgreSQL Docker Server Connection](./PostgreSQL/postgres%20docker/)
+- [PostgreSQL Todo with PG Pool](./PostgreSQL/TODO/)
 
 ## Websocket
 
