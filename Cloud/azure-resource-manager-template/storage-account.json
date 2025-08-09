@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        // can define our parameter which we want to choose different value
+        "storageAccountTier": {
+            "type": "string",
+            "metadata": {
+                "description": "tier standard or premium"
+            },
+            "defaultValue": "Premium",
+            "allowedValues": [
+                "Premium",
+                "Standard"
+            ]
+        }
+    },
+    // customize any logic
+    "functions": [],
+    "variables": {
+        "resourceName": "resourceName"
+    },
+    // arm-storage (autocomplete for storage account resource)
+    "resources": [
+        {
+            "name": "[variables('resourceName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2023-05-01",
+            "tags": {
+                "displayName": "storageaccount1"
+            },
+            "location": "[resourceGroup().location]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "[parameters('storageAccountTier')]"
+            }
+        }
+        // add more by  configuration here
+    ],
+    // what we want to get in output json field
+    "outputs": {}
+}
