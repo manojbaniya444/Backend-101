@@ -28,6 +28,10 @@ This Repository contains all the important concepts in Backend Development.
 - [gRPC: Basic](./Synchronouse%20Communication/gRPC/)
 - [gRPC: Bidirectional Stream](./Synchronouse%20Communication/gRPC%20ChatApp/)
 
+## Design Pattern
+
+- [SOLID](./Design%20Pattern/solid-design-pattern/)
+
 ## PostgrsSQL
 
 - [Blog App](./PostgreSQL/Blog-app/)
